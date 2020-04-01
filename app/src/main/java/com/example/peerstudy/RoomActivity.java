@@ -26,7 +26,7 @@ enum State{
 }
 
 public class RoomActivity extends AppCompatActivity {
-    final String ip = "http://192.168.1.113";
+    final String ip = "https://ec2-3-15-181-248.us-east-2.compute.amazonaws.com";//"http://192.168.1.113";
      String code;
      String name;
      TextView notifs;
@@ -65,8 +65,22 @@ public class RoomActivity extends AppCompatActivity {
         mSocket.on("roomLocked", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
-                Toast t = Toast.makeText(getApplicationContext(), "ROOM LOCKED NOW" , Toast.LENGTH_SHORT);
-                t.show();
+                Thread t = new Thread() {
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast t = Toast.makeText(getApplicationContext(), "ROOM LOCKED NOW" , Toast.LENGTH_SHORT);
+                                t.show();
+
+
+
+                            }
+                        });
+                    }
+                };
+                t.start();
+
                 Log.i("THISSS" , "WHATT");
                 Intent myIntent = new Intent(RoomActivity.this, MainActivity.class);
                 RoomActivity.this.startActivity(myIntent);
