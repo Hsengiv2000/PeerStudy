@@ -29,6 +29,7 @@ public class RoomActivity extends AppCompatActivity {
     final String ip = "http://192.168.1.113";
      String code;
      String name;
+     TextView notifs;
     CountDownTimer countDownTimer ;
     long currentTime ;
     State state = State.RUNNING;
@@ -51,7 +52,7 @@ public class RoomActivity extends AppCompatActivity {
        final TextView debugText  = findViewById(R.id.debugText);
        final TextView messages = findViewById(R.id.messages);
        final EditText textField = findViewById(R.id.textfield);
-       final TextView notifs = findViewById(R.id.notifs);
+       notifs = findViewById(R.id.notifs);
        notifs.setMovementMethod(new ScrollingMovementMethod());
        final Button send  = findViewById(R.id.send);
        messages.setMovementMethod(new ScrollingMovementMethod());
@@ -59,7 +60,21 @@ public class RoomActivity extends AppCompatActivity {
         code = intent.getStringExtra("code");
       final  String duration = intent.getStringExtra("time");
       name  = intent.getStringExtra("name");
+
         mSocket.emit("joinRoom" , code,name);
+        mSocket.on("roomLocked", new Emitter.Listener() {
+            @Override
+            public void call(Object... args) {
+                Toast t = Toast.makeText(getApplicationContext(), "ROOM LOCKED NOW" , Toast.LENGTH_SHORT);
+                t.show();
+                Log.i("THISSS" , "WHATT");
+                Intent myIntent = new Intent(RoomActivity.this, MainActivity.class);
+                RoomActivity.this.startActivity(myIntent);
+
+            }
+        });
+
+
         mSocket.on("startSignal", new Emitter.Listener() {
             @Override
             public void call(Object... args) {
@@ -123,7 +138,7 @@ public class RoomActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                messages.append("\n"+"ROOM: "+recName+" returned " );
+                                notifs.append("\n"+"ROOM: "+recName+" returned " );
                             }
                         });
                     }
@@ -217,6 +232,18 @@ public class RoomActivity extends AppCompatActivity {
         super.onPause();
         state= State.PAUSE;
      //   currentTime =
+        Thread t = new Thread() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifs.append("\n"+"YOU left the app");
+
+                    }
+                });
+            }
+        };
+        t.start();
         mSocket.emit("alertRoom", code, name);
 
 
@@ -233,6 +260,19 @@ public class RoomActivity extends AppCompatActivity {
 
         super.onResume();
         state = State.RUNNING;
+        Thread t = new Thread() {
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        notifs.append("\n"+"YOU returned");
+
+                    }
+                });
+            }
+        };
+        t.start();
+
         mSocket.emit("return" , code, name);
 
 
@@ -240,6 +280,8 @@ public class RoomActivity extends AppCompatActivity {
     @Override
     protected void onDestroy(){
         state  =State.STOP;
+
+
         super.onDestroy();
     }
 

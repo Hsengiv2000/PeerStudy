@@ -59,29 +59,28 @@
     <TextView
         android:id="@+id/messages"
         android:layout_width="300dp"
-        android:layout_height="250dp"
-        android:maxLines="8"
-        android:scrollbars="vertical"
+        android:layout_height="243dp"
         android:gravity="bottom"
+        android:maxLines="16"
+        android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintHorizontal_bias="0.306"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.409" />
+        app:layout_constraintVertical_bias="0.584" />
 
     <TextView
         android:id="@+id/notifs"
-        android:layout_width="106dp"
-        android:layout_height="48dp"
-        android:text="TextView"
+        android:layout_width="184dp"
+        android:layout_height="47dp"
+        android:gravity="bottom"
         android:maxLines="4"
         android:scrollbars="vertical"
-        android:gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.821"
+        app:layout_constraintHorizontal_bias="0.852"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.036" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
