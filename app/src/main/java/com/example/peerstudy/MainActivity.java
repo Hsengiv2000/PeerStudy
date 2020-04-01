@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
- final String ip = "http://ec2-3-15-181-248.us-east-2.compute.amazonaws.com";//http://192.168.1.113";
+ final String ip = "http://ec2-18-188-168-249.us-east-2.compute.amazonaws.com";//http://192.168.1.113";
         setContentView(R.layout.activity_main);
        final Button heroButton= findViewById(R.id.heroButton);
        final EditText time  = (EditText)findViewById(R.id.time);
