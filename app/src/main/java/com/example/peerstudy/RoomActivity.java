@@ -26,7 +26,7 @@ enum State{
 }
 
 public class RoomActivity extends AppCompatActivity {
-    final String ip = "http://ec2-18-188-168-249.us-east-2.compute.amazonaws.com";//"http://192.168.1.113";
+    final String ip = "http://ec2-3-134-83-109.us-east-2.compute.amazonaws.com";//"http://192.168.1.113";
      String code;
      String name;
      TextView notifs;
